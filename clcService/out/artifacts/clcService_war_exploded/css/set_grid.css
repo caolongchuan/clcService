@@ -1,0 +1,274 @@
+#header{
+    text-align:center;
+    background-color: #9479fc;
+    font-size: 50px;
+    color: #baadff;
+    padding: 20px;
+}
+/*--------------------------------------------------------------------------*/
+#main {
+    position: absolute;
+    background-color: rgba(105, 100, 100, 0.06);
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow:auto;
+    /*overflow: scroll*/
+}
+
+.cardBox {
+    position: relative;
+    margin-top: 10px;
+    margin-left: 3%;
+    width: 94%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    float: left;
+    font-size: 20px;
+    border: #4b48de;
+    border-width: 2px;
+    /*margin-right: 20px;*/
+    /*padding-top: 15px;*/
+}
+.cardBox_inner{
+    padding-bottom: 20%;
+}
+.title{
+    position: absolute;
+    background-color: rgb(110, 148, 246);
+    text-align: center;
+    color: #fdf4ff;
+    font-size: 20px;
+    left: 10px;
+    top: 50%;
+    width: 40px;
+    height: 40px;
+    margin-top: -20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.img{
+    position: absolute;
+    left: 60px;
+    top: 2%;
+    width: auto;
+    height: 96%;
+}
+.name{
+    position: absolute;
+    left: 28%;
+    top: 30%;
+    width: 22%;
+    height: 50%;
+    color: rgba(34, 32, 30, 0.98);
+    font-size: 20px;
+}
+.price{
+    position: absolute;
+    color: rgb(255, 42, 49);
+    left: 52%;
+    top: 45%;
+    width: 8%;
+    height: 96%;
+    font-size: 20px;
+}
+.button_add{
+    position: absolute;
+    text-align: center;
+    color: #fdf4ff;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    background-color: #8774de;
+    color: rgba(247, 247, 239, 0.98);
+    right: 2%;
+    top: 50%;
+    width: 11%;
+    height: 50px;
+    margin-top: -25px;
+    border-radius: 5px;
+}
+.button_add_no{
+    position: absolute;
+    text-align: center;
+    color: #fdf4ff;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    background-color: #71666d;
+    color: rgba(247, 247, 239, 0.98);
+    right: 2%;
+    top: 50%;
+    width: 11%;
+    height: 50px;
+    margin-top: -25px;
+    border-radius: 5px;
+}
+.button_change{
+    position: absolute;
+    text-align: center;
+    color: #fdf4ff;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    background-color: #8774de;
+    color: rgba(247, 247, 239, 0.98);
+    right: 15%;
+    top: 50%;
+    width: 11%;
+    height: 50px;
+    margin-top: -25px;
+    border-radius: 5px;
+}
+.button_open{
+    position: absolute;
+    text-align: center;
+    color: #fdf4ff;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    background-color: #8774de;
+    color: rgba(247, 247, 239, 0.98);
+    right: 28%;
+    top: 50%;
+    width: 11%;
+    height: 50px;
+    margin-top: -25px;
+    border-radius: 5px;
+}
+/*-------------------------确认打开门的对话框------------------------------------------------------------------*/
+#dialog_open_confirm{
+    position: absolute;
+    text-align: center;
+    color: #22201e;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ddd2de;
+    left: 10%;
+    top: 50%;
+    width: 80%;
+    height: 20%;
+}
+#p_open_confirm{
+    position: absolute;
+    left: 2%;
+    top: 2%;
+}
+#div_open_confirm_ok{
+    position: absolute;
+    text-align: center;
+    color: #fdf4ff;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    background-color: #8774de;
+    color: rgba(247, 247, 239, 0.98);
+    right: 5%;
+    bottom: 5%;
+    width: 42.5%;
+    height: 20%;
+    border-radius: 5px;
+}
+#div_open_confirm_cancle{
+    position: absolute;
+    text-align: center;
+    color: #fdf4ff;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    background-color: #8774de;
+    color: rgba(247, 247, 239, 0.98);
+    left: 5%;
+    bottom: 5%;
+    width: 42.5%;
+    height: 20%;
+    border-radius: 5px;
+}
+/*--------------------------------修改商品编号对话框-------------------------------------------------------*/
+#dialog_change_mer{
+    position: absolute;
+    text-align: center;
+    color: #22201e;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ddd2de;
+    left: 10%;
+    top: 50%;
+    width: 80%;
+    height: 20%;
+}
+#p_change_mer{
+    position: absolute;
+    left: 2%;
+    top: 2%;
+}
+#input_change_mer{
+    position: absolute;
+    left: 25%;
+    width: 50%;
+    top: 40%;
+    height: 20%;
+}
+#div_change_mer_ok{
+    position: absolute;
+    text-align: center;
+    color: #fdf4ff;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    background-color: #8774de;
+    color: rgba(247, 247, 239, 0.98);
+    right: 5%;
+    bottom: 5%;
+    width: 42.5%;
+    height: 20%;
+    border-radius: 5px;
+}
+#div_change_mer_cancle{
+    position: absolute;
+    text-align: center;
+    color: #fdf4ff;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    background-color: #8774de;
+    color: rgba(247, 247, 239, 0.98);
+    left: 5%;
+    bottom: 5%;
+    width: 42.5%;
+    height: 20%;
+    border-radius: 5px;
+}
+
+/*------------------------------------------测试用一会删除---------------------------------------------------------*/
+.back_ground{
+    position: absolute;
+    text-align: center;
+    background-color: #8774de;
+    left: 0%;
+    top: 0%;
+    width: 100%;
+    height: 100%;
+}

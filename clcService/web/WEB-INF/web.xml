@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+         version="4.0">
+
+
+
+    <servlet>
+        <servlet-name>LeafletImgServlet</servlet-name>
+        <servlet-class>servlet.LeafletImgServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LeafletImgServlet</servlet-name>
+        <url-pattern>/LeafletImgServlet</url-pattern>
+    </servlet-mapping>
+
+
+
+
+    <servlet>
+        <servlet-name>initpagedataservlet</servlet-name>
+        <servlet-class>servlet.initpagedataservlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>initpagedataservlet</servlet-name>
+        <url-pattern>/initpagedataservlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AndroidBackServlet</servlet-name>
+        <servlet-class>servlet.AndroidBackServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AndroidBackServlet</servlet-name>
+        <url-pattern>/AndroidBackServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ShareServlet</servlet-name>
+        <servlet-class>servlet.ShareServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ShareServlet</servlet-name>
+        <url-pattern>/ShareServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>LotteryServlet</servlet-name>
+        <servlet-class>servlet.LotteryServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LotteryServlet</servlet-name>
+        <url-pattern>/LotteryServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>PayComplete</servlet-name>
+        <servlet-class>servlet.PayComplete</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PayComplete</servlet-name>
+        <url-pattern>/PayComplete</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>WXGetOpenID</servlet-name>
+        <servlet-class>servlet.WXGetOpenID</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>WXGetOpenID</servlet-name>
+        <url-pattern>/WXGetOpenID</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>SetGridServlet</servlet-name>
+        <servlet-class>servlet.SetGridServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SetGridServlet</servlet-name>
+        <url-pattern>/SetGridServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>initsetpagedataservlet</servlet-name>
+        <servlet-class>servlet.initsetpagedataservlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>initsetpagedataservlet</servlet-name>
+        <url-pattern>/initsetpagedataservlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>LotteryedServlet</servlet-name>
+        <servlet-class>servlet.LotteryedServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LotteryedServlet</servlet-name>
+        <url-pattern>/LotteryedServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ShareServlet2</servlet-name>
+        <servlet-class>servlet.ShareServlet2</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ShareServlet2</servlet-name>
+        <url-pattern>/ShareServlet2</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>doLotteryServlet</servlet-name>
+        <servlet-class>servlet.doLotteryServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>doLotteryServlet</servlet-name>
+        <url-pattern>/doLotteryServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>doLotteryServlet2</servlet-name>
+        <servlet-class>servlet.doLotteryServlet2</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>doLotteryServlet2</servlet-name>
+        <url-pattern>/doLotteryServlet2</url-pattern>
+    </servlet-mapping>
+
+
+</web-app>

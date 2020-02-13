@@ -1,0 +1,20 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="clcService_war_exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/clcService_war_exploded</output-path>
+    <root id="root">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="clcService" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.9.3" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-core:2.9.3" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.9.3" />
+          <element id="library" level="project" name="Maven: com.alibaba:fastjson:1.2.32" />
+          <element id="library" level="project" name="Maven: org.json:json:20160810" />
+        </element>
+      </element>
+      <element id="javaee-facet-resources" facet="clcService/web/Web" />
+    </root>
+  </artifact>
+</component>
