@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
+import java.util.Date;
 
 /**
  * Android控制终端服务 （不打开新的页面）
@@ -34,6 +35,8 @@ public class AndroidBackServlet extends HttpServlet{
             Connection con = db.getCon();
             msg = abd.getMsgByMsg(con, device_info);
             abd.setNullByInfo(con,device_info);
+            String s = String.valueOf(new Date().getTime());//获取当前时间
+            abd.setLastTime(con,device_info,s);
             DbUtil.getClose(con);
         } catch (Exception e) {
             System.out.println("--AndroidBackServlet.doPost--"+e.toString());

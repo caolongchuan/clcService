@@ -1,5 +1,6 @@
 package servlet;
 
+import dao.AllBuyedDao;
 import dao.GridDao;
 import dao.MerchandiseDao;
 import entiry.Grid;
@@ -35,6 +36,8 @@ public class initpagedataservlet extends HttpServlet {
         String device_info = req.getParameter("device_info");
         if(null!=device_info){
 
+
+            AllBuyedDao abd = new AllBuyedDao();
             GridDao gridDao = new GridDao(device_info);
             MerchandiseDao merchandiseDao = new MerchandiseDao(device_info);
             Mer_Det_Result mDResult = new Mer_Det_Result("000", 0, null, null);
@@ -42,34 +45,41 @@ public class initpagedataservlet extends HttpServlet {
             Connection con = null;
             try {
                 con = db.getCon();
-                ArrayList<Grid> Grid_All = gridDao.getAll(con);
-                if (null != Grid_All) {
-                    mDResult.setAmount(Grid_All.size());
-                    ArrayList<Integer> grid_status = new ArrayList<Integer>();
-                    ArrayList<Merchandise> merchandises = new ArrayList<Merchandise>();
-                    for (Grid g : Grid_All) {
-                        grid_status.add(g.getGrid_status());
+                //先判断该设备是否在线
+                String lastTime = abd.getLastTime(con, device_info);
+                if(lastTime.equals("0")){//设备不在线 跳转到指定页面
+                    DbUtil.getClose(con);
+                    req.getRequestDispatcher("/WEB-INF/page/noline.jsp").forward(req, resp);
+                }else {//设备在线
+                    ArrayList<Grid> Grid_All = gridDao.getAll(con);
+                    if (null != Grid_All) {
+                        mDResult.setAmount(Grid_All.size());
+                        ArrayList<Integer> grid_status = new ArrayList<Integer>();
+                        ArrayList<Merchandise> merchandises = new ArrayList<Merchandise>();
+                        for (Grid g : Grid_All) {
+                            grid_status.add(g.getGrid_status());
 
-                        int merchandise_id = g.getMerchandise_id();
-                        Merchandise m = merchandiseDao.getMerchandiseByID(con, merchandise_id);
-                        if (null == m) {
-                            m = new Merchandise();
+                            int merchandise_id = g.getMerchandise_id();
+                            Merchandise m = merchandiseDao.getMerchandiseByID(con, merchandise_id);
+                            if (null == m) {
+                                m = new Merchandise();
+                            }
+                            merchandises.add(m);
                         }
-                        merchandises.add(m);
+                        mDResult.setGrid_status(grid_status);
+                        mDResult.setMerchandise(merchandises);
+                        mDResult.setStatus("SUCCESS");
                     }
-                    mDResult.setGrid_status(grid_status);
-                    mDResult.setMerchandise(merchandises);
-                    mDResult.setStatus("SUCCESS");
+                    String jsonString = mDResult.toJsonString();
+
+                    resp.setHeader("Content-type", "text/html;charset=UTF-8");  //这句话的意思，是告诉servlet用UTF-8转码，而不是用默认的ISO8859
+                    resp.setCharacterEncoding("UTF-8");
+                    req.setAttribute("jsonString", jsonString);
+                    req.setAttribute("device_info", device_info);
+
+                    DbUtil.getClose(con);
+                    req.getRequestDispatcher("/WEB-INF/page/plan_b.jsp").forward(req, resp);
                 }
-                String jsonString = mDResult.toJsonString();
-
-                resp.setHeader("Content-type", "text/html;charset=UTF-8");  //这句话的意思，是告诉servlet用UTF-8转码，而不是用默认的ISO8859
-                resp.setCharacterEncoding("UTF-8");
-                req.setAttribute("jsonString", jsonString);
-                req.setAttribute("device_info", device_info);
-
-                DbUtil.getClose(con);
-                req.getRequestDispatcher("/WEB-INF/page/plan_b.jsp").forward(req, resp);
             } catch (Exception e) {
                 e.printStackTrace();
             }

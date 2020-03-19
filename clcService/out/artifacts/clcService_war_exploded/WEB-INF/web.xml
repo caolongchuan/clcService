@@ -4,7 +4,10 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
 
-
+    <!-- Web初始化监听器,在项目初始化时调用初始化类 -->
+    <listener>
+        <listener-class>InitListener</listener-class>
+    </listener>
 
     <servlet>
         <servlet-name>LeafletImgServlet</servlet-name>

@@ -5,6 +5,8 @@ public class Contacts {
     //25小时的毫秒数
     public static final Long HOUR_25 = 90000000L;
     public static final Long HOUR_24 = 86400000L;
+    //5秒的毫秒数
+    public static final Long S_7 = 7000L;
 
     //微信给提供的用于获取用户openID的接口地址
     public static final String WX_GET_OPENID_URL = "https://open.weixin.qq.com/connect/oauth2/authorize";

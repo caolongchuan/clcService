@@ -10,8 +10,12 @@ public class TestQutaz {
     //需要执行的方法
     public static void main(String[] args) {
         test1();
+        test2();
     }
 
+    /**
+     * 定时任务 每个小时触发一次 用于获取微信支付所用到的ticktoken
+     */
     private static void test1() {
         //实例化scherduler 工厂
         SchedulerFactory schedulerFactory=new StdSchedulerFactory();
@@ -24,6 +28,28 @@ public class TestQutaz {
             //实例化触发器
             CronTrigger trigger = new CronTrigger("triggerGroup", "triggerGroup-s1");// 触发器名,触发器组
             trigger.setCronExpression("0 0 * ? * * *");// 触发器时间设定 每小时的0分0秒触发一次
+            scheduler.scheduleJob(jobDetail, trigger); //添加一个job
+            scheduler.start();//开启一个job
+        } catch (SchedulerException | ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 定时任务 每隔5秒执行一次 用于判断全部的设备是否在线
+     */
+    private static void test2(){
+        //实例化scherduler 工厂
+        SchedulerFactory schedulerFactory=new StdSchedulerFactory();
+        Scheduler scheduler;
+        try {
+            scheduler=schedulerFactory.getScheduler();//创建scheduler
+            //创建jobDetail 1.job分组，2.job名，3.job执行类
+            JobDetail jobDetail =
+                    new JobDetail("jobDetail-s2", "jobDetailGroup-s2", QutazdemoC2.class);
+            //实例化触发器
+            CronTrigger trigger = new CronTrigger("triggerGroup1", "triggerGroup-s2");// 触发器名,触发器组
+            trigger.setCronExpression("0/5 * * ? * * *");// 触发器时间设定 每5秒执行一次
             scheduler.scheduleJob(jobDetail, trigger); //添加一个job
             scheduler.start();//开启一个job
         } catch (SchedulerException | ParseException e) {

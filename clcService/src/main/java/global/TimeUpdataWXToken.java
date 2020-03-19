@@ -26,7 +26,6 @@ public class TimeUpdataWXToken {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        TestQutaz.main(null);
     }
 
     public static void init() {
