@@ -34,9 +34,8 @@ public class initpagedataservlet extends HttpServlet {
         TimeUpdataWXToken.init();
 
         String device_info = req.getParameter("device_info");
+        String online = req.getParameter("online");
         if(null!=device_info){
-
-
             AllBuyedDao abd = new AllBuyedDao();
             GridDao gridDao = new GridDao(device_info);
             MerchandiseDao merchandiseDao = new MerchandiseDao(device_info);
@@ -47,7 +46,7 @@ public class initpagedataservlet extends HttpServlet {
                 con = db.getCon();
                 //先判断该设备是否在线
                 String lastTime = abd.getLastTime(con, device_info);
-                if(lastTime.equals("0")){//设备不在线 跳转到指定页面
+                if(lastTime.equals("0")&&online==null){//设备不在线 跳转到指定页面
                     DbUtil.getClose(con);
                     req.getRequestDispatcher("/WEB-INF/page/noline.jsp").forward(req, resp);
                 }else {//设备在线
