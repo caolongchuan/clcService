@@ -80,6 +80,7 @@ public class ShareServlet extends HttpServlet {
                 e.printStackTrace();
             }
             String jsonString = job.toString();
+//            System.out.println("jsonString=======================" + jsonString);
             writer.write(jsonString);
         }else {
             System.out.println("jsapi_ticket=======================================error");

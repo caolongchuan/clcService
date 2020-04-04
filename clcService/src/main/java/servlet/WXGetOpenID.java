@@ -50,86 +50,87 @@ public class WXGetOpenID extends HttpServlet {
         String state = req.getParameter("state");
 
         String openid = getOpenID(code, req);
+        if(null != openid){
 //        System.out.println("get-code----"+code);
 //        System.out.println("get-openid----"+openid);
 //        System.out.println(openid);
-        String temp = "";
-        String out_trade_no = "";//商户订单号
-        if (openid != null && !openid.equals("")) {
-            String ip = CusAccessObjectUtil.getIpAddress(req);
-            //统一下单
-            OrderUniformlyParam oup = new OrderUniformlyParam(device_info, "test_body", attach, total_Fee, ip, openid);
-            temp = oup.orderUniformly();
-            out_trade_no = oup.get_out_trade_no();
+            String temp = "";
+            String out_trade_no = "";//商户订单号
+            if (openid != null && !openid.equals("")) {
+                String ip = CusAccessObjectUtil.getIpAddress(req);
+                //统一下单
+                OrderUniformlyParam oup = new OrderUniformlyParam(device_info, "test_body", attach, total_Fee, ip, openid);
+                temp = oup.orderUniformly();
+                out_trade_no = oup.get_out_trade_no();
 //            System.out.println(temp);
-        }
+            }
 
-        String return_code = "";
-        String return_msg = "";
-        String result_code = "";
-        String prepay_id = "";
+            String return_code = "";
+            String return_msg = "";
+            String result_code = "";
+            String prepay_id = "";
 
-        String leafletsOneTitle = null;
-        String leafletsOneImgUrl = null;
-        try {
-            LeafletsDao ld = new LeafletsDao(device_info);
-            Connection con = db.getCon();
-            leafletsOneTitle = ld.getLeafletsOneTitle(con);
-            leafletsOneImgUrl = ld.getLeafletsOneImgUrl(con);
+            String leafletsOneTitle = null;
+            String leafletsOneImgUrl = null;
+            try {
+                LeafletsDao ld = new LeafletsDao(device_info);
+                Connection con = db.getCon();
+                leafletsOneTitle = ld.getLeafletsOneTitle(con);
+                leafletsOneImgUrl = ld.getLeafletsOneImgUrl(con);
 
-            DbUtil.getClose(con);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+                DbUtil.getClose(con);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
 
-        if (null != temp && !temp.equals("httpsRequest-error")) {
-            HashMap map = readStringXmlOut(temp);
-            if (null != map) {
-                return_code = (String) map.get("return_code");
-                return_msg = (String) map.get("return_msg");
-                result_code = (String) map.get("result_code");
-                prepay_id = (String) map.get("prepay_id");
-                //支付
+            if (null != temp && !temp.equals("httpsRequest-error")) {
+                HashMap map = readStringXmlOut(temp);
+                if (null != map) {
+                    return_code = (String) map.get("return_code");
+                    return_msg = (String) map.get("return_msg");
+                    result_code = (String) map.get("result_code");
+                    prepay_id = (String) map.get("prepay_id");
+                    //支付
 //                System.out.println(prepay_id);
-                req.setAttribute("device_info", device_info);
-                req.setAttribute("result", "SUCCESS");
-                req.setAttribute("appId", Contacts.APPID);
-                String timeStamp = String.valueOf(new Date().getTime());
-                req.setAttribute("timeStamp", timeStamp);
-                String nonceStr = MD5Utils.digest(String.valueOf(Math.random()));
-                req.setAttribute("nonceStr", nonceStr);
-                req.setAttribute("package1", "prepay_id=" + prepay_id);
-                req.setAttribute("signType", Contacts.SIGN_TYPE);
+                    req.setAttribute("device_info", device_info);
+                    req.setAttribute("result", "SUCCESS");
+                    req.setAttribute("appId", Contacts.APPID);
+                    String timeStamp = String.valueOf(new Date().getTime());
+                    req.setAttribute("timeStamp", timeStamp);
+                    String nonceStr = MD5Utils.digest(String.valueOf(Math.random()));
+                    req.setAttribute("nonceStr", nonceStr);
+                    req.setAttribute("package1", "prepay_id=" + prepay_id);
+                    req.setAttribute("signType", Contacts.SIGN_TYPE);
 
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("appId", Contacts.APPID);
-                params.put("timeStamp", timeStamp);
-                params.put("nonceStr", nonceStr);
-                params.put("package", "prepay_id=" + prepay_id);
-                params.put("signType", Contacts.SIGN_TYPE);
-                req.setAttribute("paySign", WXPaySignUtil.Sign(params, Contacts.SECRET));
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("appId", Contacts.APPID);
+                    params.put("timeStamp", timeStamp);
+                    params.put("nonceStr", nonceStr);
+                    params.put("package", "prepay_id=" + prepay_id);
+                    params.put("signType", Contacts.SIGN_TYPE);
+                    req.setAttribute("paySign", WXPaySignUtil.Sign(params, Contacts.SECRET));
 
-                req.setAttribute("out_trade_no", out_trade_no);
+                    req.setAttribute("out_trade_no", out_trade_no);
 //                System.out.println("1");
-                if(null!=leafletsOneTitle&&null!=leafletsOneImgUrl){
-                    req.setAttribute("leafletsOneTitle", leafletsOneTitle);
-                    req.setAttribute("leafletsOneImgUrl", leafletsOneImgUrl);
-                }else{
-                    req.setAttribute("leafletsOneTitle", "欢迎光临");
-                    req.setAttribute("leafletsOneImgUrl", "http://www.wxfslp.xyz/mer_picture/car.png");
-                }
+                    if(null!=leafletsOneTitle&&null!=leafletsOneImgUrl){
+                        req.setAttribute("leafletsOneTitle", leafletsOneTitle);
+                        req.setAttribute("leafletsOneImgUrl", leafletsOneImgUrl);
+                    }else{
+                        req.setAttribute("leafletsOneTitle", "欢迎光临");
+                        req.setAttribute("leafletsOneImgUrl", "http://www.wxfslp.xyz/mer_picture/car.png");
+                    }
 
 
-                req.getRequestDispatcher("/WEB-INF/page/wx_pay.jsp").forward(req, resp);
-            } else {
+                    req.getRequestDispatcher("/WEB-INF/page/wx_pay.jsp").forward(req, resp);
+                } else {
 //                System.out.println("2");
-                req.setAttribute("result", "FAIL");
+                    req.setAttribute("result", "FAIL");
 //                System.out.println(prepay_id);
-                req.getRequestDispatcher("/WEB-INF/page/wx_pay.jsp").forward(req, resp);
+                    req.getRequestDispatcher("/WEB-INF/page/wx_pay.jsp").forward(req, resp);
+                }
             }
         }
-
     }
 
     @Override
@@ -176,7 +177,7 @@ public class WXGetOpenID extends HttpServlet {
             System.out.println("--WXGetOpenID.getOpenID-1-" + e.toString());
         }
 
-        return "";
+        return null;
     }
 
     /**

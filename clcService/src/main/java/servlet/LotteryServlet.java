@@ -45,7 +45,7 @@ public class LotteryServlet extends HttpServlet {
 //        System.out.println("out_trade_no====================" + out_trade_no);
         String device_info = req.getParameter("device_info");
         //先根据openID去查找OutTradeNo数据库，看有没有该用户购买过东西并且没有进行过抽奖
-        // 如果有先显示抽奖页面 如果已经抽过或者没有改用户openID则显示宣传页
+        // 如果有先显示抽奖页面 如果已经抽过或者没有该用户openID则显示宣传页
 
         if(openid!=null){
             String leafletsTwoTitle = null;
@@ -60,6 +60,9 @@ public class LotteryServlet extends HttpServlet {
                 leafletsTwoImgUrl = ld.getLeafletsTwoImgUrl(con);
 
                 int lotterStatus = otnd.getLotterStatus(con, out_trade_no, openid);
+                System.out.println("out_trade_no====================" + out_trade_no);
+                System.out.println("openid====================" + openid);
+                System.out.println("lotterStatus====================" + lotterStatus);
                 int total_fee = otnd.getTotalFee(con, out_trade_no);
                 if(-1 == lotterStatus){
                     req.getRequestDispatcher("/WEB-INF/page/leaflet.jsp").forward(req, resp);
