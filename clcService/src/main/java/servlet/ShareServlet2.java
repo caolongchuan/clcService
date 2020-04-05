@@ -53,7 +53,9 @@ public class ShareServlet2 extends HttpServlet {
             String state = req.getParameter("state");
             String device_info = req.getParameter("device_info");
             String Url = url +"&device_info=" +device_info+ "&code=" + code +"&state=" + state;
-//            System.out.println("--ShareServlet2.Url--"+Url);
+//            System.out.println("Url-----------------------------"+Url);
+//            System.out.println("state-----------------------------"+state);
+//            System.out.println("device_info-----------------------------"+device_info);
 
             String timestamp1 = String.valueOf(new Date().getTime());
             String timestamp = timestamp1.substring(timestamp1.length()-10);

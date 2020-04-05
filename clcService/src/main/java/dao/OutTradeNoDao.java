@@ -1,5 +1,6 @@
 package dao;
 
+import entiry.out_trade_no_table;
 import global.Contacts;
 
 import java.sql.Connection;
@@ -41,6 +42,38 @@ public class OutTradeNoDao {
             }
         }
         return -1;
+    }
+
+    /**SELECT * FROM out_trade_no_table where create_time=(SELECT max(create_time) FROM out_trade_no_table WHERE user_openid='o0y-x0-zwoLusngUDDpx1gnNemxY')
+     * 根据openid获取最近一次消费的奖值
+     * @param con 22779
+     * @param openid
+     * @return
+     */
+    public out_trade_no_table getLoterStatusLastTime(Connection con, String openid){
+        String sql;
+        if(null!=con){
+            sql = "SELECT * FROM out_trade_no_table where create_time=(SELECT max(create_time) FROM out_trade_no_table WHERE user_openid=?)";
+//            sql = "SELECT * FROM out_trade_no_table where create_time=(SELECT max(create_time) FROM out_trade_no_table";
+            try {
+                PreparedStatement ps = con.prepareStatement(sql);
+                ps.setString(1, openid);
+                ResultSet rs = ps.executeQuery();
+                if (rs.next()) {
+                    out_trade_no_table otnt = new out_trade_no_table();
+                    otnt.out_trade_no = rs.getString("out_trade_no");
+                    otnt.create_time = rs.getLong("create_time");
+                    otnt.lottery_status = rs.getInt("lottery_status");
+                    otnt.user_openid = rs.getString("user_openid");
+                    otnt.total_fee = rs.getInt("total_fee");
+                    return otnt;
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return null;
     }
 
     //根据订单号获取付款金额

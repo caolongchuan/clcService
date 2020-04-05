@@ -79,6 +79,7 @@
         xmlhttp.onreadystatechange = function () {
             if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
                 //分享朋友圈
+                <%--alert("out_trade_no=${out_trade_no}&lotterValue=${lotterValue}&device_info=${device_info}");--%>
                 fenxiang();
             }
         };
@@ -90,7 +91,6 @@
 
     //设置分享朋友圈
     function fenxiang() {
-        // alert(device_info);
         var xmlhttp;
         if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
             xmlhttp = new XMLHttpRequest();
@@ -100,6 +100,7 @@
         xmlhttp.onreadystatechange = function () {
             if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
                 var result = JSON.parse(xmlhttp.responseText);
+                // alert(xmlhttp.responseText);
                 if (!result == "") {
                     wx.config({
                         debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
@@ -132,7 +133,8 @@
         xmlhttp.open("POST", "http://www.wxfslp.xyz/clcService_war_exploded/ShareServlet2", true);
         // xmlhttp.open("POST","http://172.16.18.134:8080/clcService_war_exploded/ShareServlet",true);
         xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xmlhttp.send("url=" + window.location.href.split('#')[0]);
+        // alert("url=" + window.location.href.split('#')[0]);
+        xmlhttp.send("url=" + window.location.href.split('#')[0]+"&device_info=${device_info}");
     }
 
 

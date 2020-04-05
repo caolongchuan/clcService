@@ -4,8 +4,8 @@ import dao.LeafletsDao;
 import dao.OutTradeNoDao;
 import dao.PrizeDao;
 import entiry.Prize;
+import entiry.out_trade_no_table;
 import global.Contacts;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import util.DbUtil;
@@ -18,7 +18,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.net.URL;
 import java.net.URLConnection;
 import java.sql.Connection;
@@ -41,28 +40,34 @@ public class LotteryServlet extends HttpServlet {
 //        System.out.println("code=====================" + code);
         String openid = getOpenID(code, req);
 //        System.out.println("openid====================" + openid);
-        String out_trade_no = req.getParameter("out_trade_no");
+//        String out_trade_no = req.getParameter("out_trade_no");
 //        System.out.println("out_trade_no====================" + out_trade_no);
-        String device_info = req.getParameter("device_info");
+//        String device_info = req.getParameter("device_info");
         //先根据openID去查找OutTradeNo数据库，看有没有该用户购买过东西并且没有进行过抽奖
         // 如果有先显示抽奖页面 如果已经抽过或者没有该用户openID则显示宣传页
 
         if(openid!=null){
             String leafletsTwoTitle = null;
             String leafletsTwoImgUrl = null;
-            LeafletsDao ld = new LeafletsDao(device_info);
             OutTradeNoDao otnd = new OutTradeNoDao();
-            PrizeDao pd = new PrizeDao(device_info);
             Connection con;
             try {
                 con = db.getCon();
+
+                out_trade_no_table otnt = otnd.getLoterStatusLastTime(con, openid);
+                String out_trade_no = otnt.out_trade_no;
+                String device_info = otnt.out_trade_no.replaceAll("\\d+","");
+                int lotterStatus = otnt.lottery_status;
+
+//                System.out.println("device_info====================" + device_info);
+                LeafletsDao ld = new LeafletsDao(device_info);
                 leafletsTwoTitle = ld.getLeafletsTwoTitle(con);
                 leafletsTwoImgUrl = ld.getLeafletsTwoImgUrl(con);
+                PrizeDao pd = new PrizeDao(device_info);
 
-                int lotterStatus = otnd.getLotterStatus(con, out_trade_no, openid);
-                System.out.println("out_trade_no====================" + out_trade_no);
-                System.out.println("openid====================" + openid);
-                System.out.println("lotterStatus====================" + lotterStatus);
+//                System.out.println("out_trade_no====================" + out_trade_no);
+//                System.out.println("openid====================" + openid);
+//                System.out.println("lotterStatus====================" + lotterStatus);
                 int total_fee = otnd.getTotalFee(con, out_trade_no);
                 if(-1 == lotterStatus){
                     req.getRequestDispatcher("/WEB-INF/page/leaflet.jsp").forward(req, resp);

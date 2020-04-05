@@ -22,8 +22,8 @@
     window.onload = function () {
         <%--alert("<%=out_trade_no %>");--%>
         var v1 = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxedc7f7cb6de6705e&redirect_uri=http%3A%2F%2Fwww.wxfslp.xyz%2FLotteryServlet";
-        var v2 = "%3Fout_trade_no%3D<%=out_trade_no %>";
-        var v3 = "%26device_info%3D<%=device_info %>";
+        var v2 = "%3Fout_trade_no%3Dout_trade_no";
+        var v3 = "%26device_info%3Ddevice_info";
         var v4 = "&response_type=code&scope=snsapi_base&connect_redirect=1&state=123#wechat_redirect";
 
         window.location.href = v1 + v2 +v3+v4;

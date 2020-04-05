@@ -10,6 +10,9 @@
 <html>
   
 <head>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.4.0.js"></script>
     <title>微信支付</title>    
@@ -71,7 +74,7 @@
 
     //设置分享朋友圈
     function fenxiang() {
-        var link1 = 'http://www.wxfslp.xyz/shape.jsp?out_trade_no=' + out_trade_no + '&device_info='+device_info;
+        var link1 = 'http://www.wxfslp.xyz/shape.jsp';
         // alert(link1);
         var xmlhttp;
         if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
@@ -89,6 +92,7 @@
                         timestamp: result.timestamp, // 必填，生成签名的时间戳
                         nonceStr: result.nonceStr, // 必填，生成签名的随机串
                         signature: result.signature,// 必填，签名
+                        // 必填，把要使用的方法名放到这个数组中。
                         jsApiList: ['updateAppMessageShareData', 'updateTimelineShareData'] // 必填，需要使用的JS接口列表
                     });
                     wx.ready(function () {

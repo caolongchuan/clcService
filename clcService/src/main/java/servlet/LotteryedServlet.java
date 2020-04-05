@@ -1,9 +1,7 @@
 package servlet;
 
 import dao.OutTradeNoDao;
-import dao.PrizeDao;
-import entiry.Prize;
-import global.Contacts;
+import entiry.out_trade_no_table;
 import org.json.JSONException;
 import org.json.JSONObject;
 import util.DbUtil;
@@ -16,12 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.net.URL;
 import java.net.URLConnection;
 import java.sql.Connection;
-import java.util.ArrayList;
-import java.util.Random;
 
 /**
  * 判断是进领奖页还是领奖后宣传页 （打开新的页面）
@@ -39,9 +34,9 @@ public class LotteryedServlet extends HttpServlet {
 //        System.out.println("code=======LotteryedServlet==============" + code);
         String openid = getOpenID(code, req);
 //        System.out.println("openid=======LotteryedServlet=============" + openid);
-        String out_trade_no = req.getParameter("out_trade_no");
-        String lotterValue = req.getParameter("lotterValue");
-        String device_info = req.getParameter("device_info");
+//        String out_trade_no = req.getParameter("out_trade_no");
+//        String lotterValue = req.getParameter("lotterValue");
+//        String device_info = req.getParameter("device_info");
 //        System.out.println("lotterValue=======LotteryedServlet=============" + lotterValue);
 
         if(openid!=null){
@@ -49,8 +44,13 @@ public class LotteryedServlet extends HttpServlet {
             Connection con = null;
             try {
                 con = db.getCon();
-                int lotterStatus = otnd.getLotterStatus(con, out_trade_no, openid);
-                int total_fee = otnd.getTotalFee(con, out_trade_no);
+                out_trade_no_table otnt = otnd.getLoterStatusLastTime(con, openid);
+
+                String out_trade_no = otnt.out_trade_no;
+                String device_info = otnt.out_trade_no.replaceAll("\\d+","");
+                String lotterValue = String.valueOf(otnt.lottery_status % 10);
+                int lotterStatus = otnt.lottery_status;
+                int total_fee = otnt.total_fee;
 
                 if(-1==lotterStatus){
                     req.setAttribute("lotterValue", lotterValue);
